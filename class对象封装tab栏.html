@@ -89,9 +89,41 @@
             this.contents = document.querySelectorAll(this.contentClass)
         }
         // 事件
-        // 将每一个行为都看成一种方法
-        // 增加类名
-        
+        // 将每一个小行为都看成一种方法
+        // 改变类名的方法
+          // 背景变红的方法
+        addItem (){
+            this.items.forEach(e=>{
+                // 利用箭头函数this指向上一层
+                this.items.forEach(e=>{
+                    // 排他思想，去除所有的有active类名的项
+                    e.classList.remove('active')
+                })
+                // 给自己增加active的类名
+                e.classList.add('active')
+            })
+        }
+          // 内容区切换类名的方法
+        changeContent (){
+            this.contents.forEach(e=>{
+                // 排他
+                this.contents.forEach(e){
+                    e.classList.remove('.show')
+                }
+                // 给自己增加对应的类名
+                e.classList.add('.show')
+            })
+        }
+
+        // 把注册事件看做对象的方法，构造函数
+        // 把事件类型看做变量
+        playEvent (eventType,eventWays){
+            this.items.forEach(e=>{
+                e.addEventListener(eventType,e=>{
+                    
+                })
+            }
+        }
     }
 </script>
 
