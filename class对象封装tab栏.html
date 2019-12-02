@@ -76,55 +76,65 @@
   tab栏的功能
     鼠标移入，切换当前的分类的样式，切换当前分类对应的内容
 */
-    class Tab {
+class Tab {
         // 类的构造函数
         // 获取元素
-        constructor(itemClass,contentClass){
+        constructor(itemClass,contentClass,itemActive,contentShow,eventType){
             // 短路运算设置默认值
             // 此时可以理解为给this.itemClass设置属性
+            // 相当于给元素变成参数
             this.itemClass = itemClass || '.item'
             this.contentClass = contentClass || '.content'
+            // 需要增减的类名
+            this.itemActive = itemActive || 'active'
+            this.contentShow = contentShow || '.show'
+            // 事件类型
+            this.eventType = eventType || 'mouseover'
             // 将获取到的元素看成一种自身的属性
             this.items = document.querySelectorAll(this.itemClass)
             this.contents = document.querySelectorAll(this.contentClass)
+            this.addEvent();
         }
         // 事件
         // 将每一个小行为都看成一种方法
         // 改变类名的方法
           // 背景变红的方法
-        addItem (){
+        addItem (current){
             this.items.forEach(e=>{
                 // 利用箭头函数this指向上一层
                 this.items.forEach(e=>{
                     // 排他思想，去除所有的有active类名的项
-                    e.classList.remove('active')
+                    e.classList.remove(this.itemActive)
                 })
                 // 给自己增加active的类名
-                e.classList.add('active')
+                current.classList.add(this.itemActive)
             })
         }
           // 内容区切换类名的方法
-        changeContent (){
+        changeContent (index){
             this.contents.forEach(e=>{
                 // 排他
-                this.contents.forEach(e){
-                    e.classList.remove('.show')
-                }
-                // 给自己增加对应的类名
-                e.classList.add('.show')
+                this.contents.forEach(e=>{
+                    e.classList.remove(this.contentShow)
+                })
+                // 给自己增加对应的content类名
+                this.contents[index].classList.add(this.contentShow)
             })
         }
 
         // 把注册事件看做对象的方法，构造函数
         // 把事件类型看做变量
-        playEvent (eventType,eventWays){
-            this.items.forEach(e=>{
-                e.addEventListener(eventType,e=>{
-                    
+        playEvent (){
+            this.items.forEach((e,i)=>{
+                e.addEventListener(this.eventType,e=>{
+                    // 里面调用上面写好的事件方法
+                    this.addItem(e.target);
+                    this.changeContent(i);
                 })
-            }
+            })
         }
     }
-</script>
 
+    
+</script>
 </html>
